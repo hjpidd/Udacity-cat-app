@@ -1,0 +1,54 @@
+h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 15pt;
+}
+
+.container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.display {
+  width: 80%;
+}
+
+.list {
+  width: 20%;
+  flex-direction: column;
+}
+
+.list h2 {
+  padding-bottom: 15px;
+  margin: 0;
+}
+
+.list span {
+  width: 100%;
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.cat_item {
+  width: 300px;
+  display: flex;
+  margin: 0;
+}
+
+.cat_item h3 {
+  width: 100%;
+  text-align: center;
+}
+
+.img {
+  width: 250px;
+  height: 250px;
+}
+
+.hide {
+  display: none;
+}
