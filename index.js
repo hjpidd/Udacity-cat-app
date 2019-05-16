@@ -1,79 +1,107 @@
-var pics = document.getElementsByClassName('img');
-var count = document.getElementsByClassName('score');
-var cats = document.getElementsByClassName('cat_item');
-var list = document.getElementsByClassName('list')[0];
-var catSel = [];
-var catList = [
-  {name: 'Mittens', clicks: 0, pic: 'cat.jpg'},
-  {name: 'Bear', clicks: 0, pic: 'cat.jpg'},
-  {name: 'Dave', clicks: 0, pic: 'cat.jpg'},
-  {name: 'Boris', clicks: 0, pic: 'cat.jpg'},
-  {name: 'Max', clicks: 0, pic: 'cat.jpg'}
-];
+// Model
+
+var displayedCat = document.getElementById('cat_item');
+var list = document.getElementById('list');
+var catName = document.getElementById('name');
+var catCount = document.getElementById('count');
+var catPic = document.getElementById('pict');
+var catList = [];
 var counter = -1;
+var score = 0;
+var names = ['Mittens', 'Bear', 'Dave', 'Boris', 'Max'];
+var newCats = [];
+class Cat {
+  constructor(name) {
+    this.name = name;
+    this.clicks = 0;
+    this.pic = 'cat.jpg';
+  };
+};
+
+
+
+// Octopus (links the model to the view)
 
 window.addEventListener('DOMContentLoaded', function() {
   // name();
   lister();
-  putter();
-  clickCount();
+  creator();
+  listen();
 });
 
+// Create the list of cats
 function lister() {
-  for (i = 0; i < catList.length; i++) {
+  for (i = 0; i < names.length; i++) {
     var elem = document.createElement('span');
-    elem.innerHTML = catList[i].name;
-    list.appendChild(elem);
-    catSel.push(elem);
+    elem.innerHTML = names[i];
+    renderList(elem);
+  };
+  for (i = 0; i < list.children.length; i++) {
+    catList.push(list.children[i]);
   };
 };
 
-// function name() {
-//   for (i=0;i<cats.length;i++) {
-//     cats[i].children[0].innerHTML = catList[i].name;
-//   };
-// };
-
-function putter() {
-  catSel.forEach(function(cat) {
-    var name = cat.innerHTML
-    cat.addEventListener('click', (function(nameCopy) {
-      return function() {
-        counter++;
-        var catName = nameCopy;
-        if (counter < cats.length) {
-          var thisCat = cats[counter];
-          var newCatName = document.createElement('h3');
-          newCatName.innerHTML = catName;
-          var newCatPic = document.createElement('img');
-          newCatPic.classList.add('img');
-          newCatPic.src = catList[counter].pic;
-          var newCatDiv = document.createElement('div');
-          newCatDiv.classList.add('score');
-          var countUp = document.createElement('h1');
-          countUp.innerHTML = 'Cat clicks: 0';
-          newCatDiv.appendChild(countUp);
-          thisCat.appendChild(newCatName);
-          thisCat.appendChild(newCatPic);
-          thisCat.appendChild(newCatDiv);
-          thisCat.classList.remove('hide');
-        }
-        else {
-          alert('That\'s enough cats for one day!');
-        };
-      };
-    })(name));
-  });
+// Create cat objects
+function creator() {
+  for (i = 0; i < names.length; i++) {
+    var newCat = new Cat(names[i]);
+    newCats.push(newCat);
+  };
 };
 
-function clickCount() {
-  var score = 0;
-  for (i = 0; i < cats.length; i++) {
-    cats[i].addEventListener('click', (function(countOne) {
-      return function() {
-        countOne++;
-        this.children[2].children[0].innerHTML = 'Cat clicks: ' + countOne;
-      };
-    })(score));
+// Tell the view to display the selected cat
+function update(c) {
+  disp(c)
+};
+
+// Increment the clicks
+function incrementer(catOpen) {
+  for (i = 0; i < newCats.length; i++) {
+    if (catOpen === newCats[i].name) {
+      newCats[i].clicks++
+      console.log(newCats[i])
+      inc(newCats[i])
+    }
+  }
+}
+// View - display
+
+// Display selected cat
+function disp(c) {
+  catName.innerHTML = c.name;
+  catCount.innerHTML = c.clicks;
+  catPic.src = c.pic;
+}
+
+function inc(c) {
+  catCount.innerHTML = c.clicks;
+}
+
+// Add a listener to the displayed photo
+catPic.addEventListener('click', function() {
+  console.log(this)
+  var catOpen = catName.innerHTML;
+  incrementer(catOpen);
+})
+
+update
+
+// View - list
+
+function renderList(elem) {
+  list.appendChild(elem);
+};
+
+// Add listeners to the list of cats
+function listen() {
+  for (i = 0; i < newCats.length; i++) {
+    catList[i].addEventListener('click', function() {
+      for (i = 0; i < newCats.length; i++) {
+        if (this.innerHTML === newCats[i].name) {
+          console.log(newCats[i])
+          update(newCats[i]);
+        }
+      }
+    });
   };
 };

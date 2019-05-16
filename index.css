@@ -7,48 +7,49 @@ h1 {
 .container {
   display: flex;
   align-content: center;
-  justify-content: center;
   flex-wrap: wrap;
+}
+
+.head {
+  justify-content: center;
+}
+
+.main {
+  justify-content: center;
+  height: 510px;
+}
+
+.list {
+  align-content: center;
 }
 
 .display {
   width: 80%;
 }
 
-.list {
+#cat_item {
+  flex-direction: column;
+}
+
+#list {
   width: 20%;
   flex-direction: column;
 }
 
-.list h2 {
+#cat_item h2 {
   padding-bottom: 15px;
   margin: 0;
-}
-
-.list span {
-  width: 100%;
-  padding-bottom: 10px;
+  text-align: center;
   font-weight: 600;
-  font-size: 1.1em;
   cursor: pointer;
 }
 
-.cat_item {
-  width: 300px;
-  display: flex;
-  margin: 0;
-}
-
-.cat_item h3 {
-  width: 100%;
-  text-align: center;
+span {
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .img {
   width: 250px;
   height: 250px;
-}
-
-.hide {
-  display: none;
 }
